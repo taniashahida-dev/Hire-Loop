@@ -7,10 +7,15 @@ import { IoMenuSharp } from 'react-icons/io5';
 import { AiOutlineClose } from 'react-icons/ai';
 import Image from 'next/image';
 import Navlink from './Navlink';
+import { useSession } from '@/lib/auth-client';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+const {data , isPending} = useSession()
+console.log(data?.user,"IsPending", isPending)
+const user = data?.user
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,12 +66,16 @@ export default function Navbar() {
 
               <div className="w-px h-6 bg-white/10 mx-2" />
 
-              <Link
+            {user?  <>
+            <p className='text-violet-400 px-2'>Hello {user?.name}</p>
+            
+            </>
+            :  <Link
                 href="#"
                 className="text-violet-400 hover:text-violet-300 text-sm px-4 py-2 transition"
               >
                 Sign In
-              </Link>
+              </Link>}
 
               <button className="bg-white text-black px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition-all duration-200">
                 Get Started
@@ -101,13 +110,13 @@ export default function Navbar() {
             ))}
 
             <div className="border-t border-white/10 pt-3 flex flex-col gap-3">
-              <Link
-                href="#"
-                className="text-violet-400 hover:text-violet-300 transition"
-              >
-                Sign In
-              </Link>
-
+            {user? <p className='text-violet-400 px-2'>Hello {user?.name}</p>:<Link
+              href={'/sign-in'}
+              className="text-violet-400 hover:text-violet-300 transition"
+            >
+              Sign In
+            </Link>
+}
               <button className="bg-white text-black py-3 rounded-xl font-medium hover:bg-gray-200 transition">
                 Get Started
               </button>
