@@ -4,7 +4,7 @@ const RecruiterJobs
  = () => {
     return (
         <div>
-            
+            all jobs
         </div>
     );
 };

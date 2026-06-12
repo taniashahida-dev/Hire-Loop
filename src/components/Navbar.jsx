@@ -14,7 +14,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const { data, isPending } = useSession();
-  console.log(data?.user, "IsPending", isPending);
+  // console.log(data?.user, "IsPending", isPending);
   const user = data?.user;
 
   useEffect(() => {

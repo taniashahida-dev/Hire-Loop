@@ -16,8 +16,9 @@ import {
     toast
 } from "@heroui/react";
 import { Briefcase, Globe } from "@gravity-ui/icons";
-// import { createJob } from "@/lib/actions/jobs";
+
 import { redirect } from "next/navigation";
+import { postJobs } from "@/lib/actions/jobsAction";
 
 export default function PostJobPage() {
     // Mock configuration for recruiter's authenticated state
@@ -30,51 +31,51 @@ export default function PostJobPage() {
     const [isRemote, setIsRemote] = useState(false);
     const [errors, setErrors] = useState({});
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    //     if (!mockCompany.isApproved) {
-    //         alert("Your company profile must be approved before you can post jobs.");
-    //         return;
-    //     }
+        if (!mockCompany.isApproved) {
+            alert("Your company profile must be approved before you can post jobs.");
+            return;
+        }
 
-    //     const formData = new FormData(e.currentTarget);
-    //     const data = Object.fromEntries(formData.entries());
+        const formData = new FormData(e.currentTarget);
+        const data = Object.fromEntries(formData.entries());
 
-    //     const newErrors = {};
-    //     if (!data.jobTitle) newErrors.jobTitle = "Job title is required";
-    //     if (!data.jobCategory) newErrors.jobCategory = "Job category is required";
-    //     if (!data.jobType) newErrors.jobType = "Job type is required";
-    //     if (!data.minSalary) newErrors.minSalary = "Minimum salary is required";
-    //     if (!data.maxSalary) newErrors.maxSalary = "Maximum salary is required";
-    //     if (!isRemote && !data.location) newErrors.location = "Location is required for non-remote roles";
-    //     if (!data.deadline) newErrors.deadline = "Application deadline is required";
-    //     if (!data.responsibilities) newErrors.responsibilities = "Responsibilities are required";
-    //     if (!data.requirements) newErrors.requirements = "Requirements are required";
-    //     console.log("Validation errors:", newErrors);
-    //     if (Object.keys(newErrors).length > 0) {
-    //         setErrors(newErrors);
-    //         return;
-    //     }
+        const newErrors = {};
+        if (!data.jobTitle) newErrors.jobTitle = "Job title is required";
+        if (!data.jobCategory) newErrors.jobCategory = "Job category is required";
+        if (!data.jobType) newErrors.jobType = "Job type is required";
+        if (!data.minSalary) newErrors.minSalary = "Minimum salary is required";
+        if (!data.maxSalary) newErrors.maxSalary = "Maximum salary is required";
+        if (!isRemote && !data.location) newErrors.location = "Location is required for non-remote roles";
+        if (!data.deadline) newErrors.deadline = "Application deadline is required";
+        if (!data.responsibilities) newErrors.responsibilities = "Responsibilities are required";
+        if (!data.requirements) newErrors.requirements = "Requirements are required";
+        console.log("Validation errors:", newErrors);
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
 
-    //     setErrors({});
+        setErrors({});
 
-    //     const payload = {
-    //         ...data,
-    //         isRemote,
-    //         companyId: mockCompany.id,
-    //         status: "active",
-    //         isPubliclyVisible: true,
-    //     };
+        const payload = {
+            ...data,
+            isRemote,
+            companyId: mockCompany.id,
+            status: "active",
+            isPubliclyVisible: true,
+        };
 
-    //     const res = await createJob(payload);
-    //     if (res.insertedId) {
-    //         toast.success("Job posted successfully!");
-    //         e.target.reset();
-    //         setIsRemote(false);
-    //         redirect("/dashboard/recruiter/jobs");
-    //     }
-    // };
+        const res = await postJobs(payload);
+        if (res.insertedId) {
+            toast.success("Job posted successfully!");
+            e.target.reset();
+            setIsRemote(false);
+            redirect("/dashboard/recruiter/jobs");
+        }
+    };
 
     // Dark styles styled to match your image_988c20.png reference layout
     const textInputClass = "w-full text-white bg-[#1c1c1e] border border-zinc-800 hover:bg-[#242426] focus:border-zinc-600 rounded-lg h-12 px-3 text-sm placeholder:text-zinc-600 outline-none transition-all";
@@ -105,7 +106,7 @@ export default function PostJobPage() {
                 </div>
 
                 {/* Hero UI Main Form Handler */}
-                <Form className="space-y-8" validationErrors={errors} validationBehavior='aria'>
+                <Form onSubmit={handleSubmit} className="space-y-8" validationErrors={errors} validationBehavior='aria'>
 
                     {/* SECTION 1: Job Information */}
                     <Fieldset className="space-y-6 w-full">
