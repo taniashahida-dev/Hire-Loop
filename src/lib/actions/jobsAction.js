@@ -10,4 +10,5 @@ const res = await fetch(`${server}/jobs`,{
     },
     body: JSON.stringify(jobData),
 })
+ return await res.json();
 }
