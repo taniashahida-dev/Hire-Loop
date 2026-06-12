@@ -3,7 +3,7 @@ import React from 'react';
 const CompanyPage = () => {
     return (
         <div>
-            company
+            this is company
         </div>
     );
 };

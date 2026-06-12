@@ -1,6 +1,6 @@
 import HeroContent from "@/components/HeroContent";
 import HeroStats from "@/components/HeroStats";
-import Image from "next/image";
+
 
 export default function Home() {
   return (

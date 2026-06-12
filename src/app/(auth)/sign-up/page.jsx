@@ -1,16 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Card, Button, Link, TextField, Label, InputGroup, Input, FieldError } from "@heroui/react";
+import { Card, Button, Link, TextField, Label, InputGroup, Input,Description, Radio, RadioGroup } from "@heroui/react";
 import { Eye, EyeSlash, Person, At, ShieldKeyhole } from "@gravity-ui/icons";
 import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+
 
 export default function SignupPage() {
     // Form fields
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+       const [role, setRole] = useState("seeker");
 
+const router = useRouter()
     // UI States
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -31,16 +35,22 @@ export default function SignupPage() {
                 email,
                 password,
                 name,
-                callbackURL: "/",
+                role
+                
             });
 
             if (authError) {
                 setError(authError.message || "Something went wrong during signup.");
+                console.log(authError)
+                return
             } else {
+                console.log('successfull')
                 setSuccess("Account created successfully! Welcome.");
                 setName("");
                 setEmail("");
                 setPassword("");
+                router.push('/sign-in')
+
             }
         } catch (err) {
             setError("An unexpected network error occurred.");
@@ -114,6 +124,28 @@ export default function SignupPage() {
                         </InputGroup>
                     </TextField>
 
+   <div className="flex flex-col gap-4">
+      <Label>Role</Label>
+      <RadioGroup defaultValue="job seeker" name="role" onChange = {value => setRole(value)} orientation="horizontal">
+        <Radio value="job seeker">
+          <Radio.Control>
+            <Radio.Indicator />
+          </Radio.Control>
+          <Radio.Content>
+            <Label>Job Seeker</Label>
+          </Radio.Content>
+        </Radio>
+        <Radio value="recruiter">
+          <Radio.Control>
+            <Radio.Indicator />
+          </Radio.Control>
+          <Radio.Content>
+            <Label>Recruiter</Label>
+          </Radio.Content>
+        </Radio>
+      </RadioGroup>
+    </div>
+
                     {/* Dynamic Status Badges */}
                     {error && (
                         <div className="p-3.5 text-xs font-medium rounded-xl bg-red-100/60 dark:bg-red-950/50 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900">
@@ -138,15 +170,16 @@ export default function SignupPage() {
                         Sign Up
                     </Button>
 
-                    {/* Navigation Option */}
+                  
+                </form>
+                  {/* Navigation Option */}
                     <div className="text-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                         Already have an account?{" "}
-                        <Link href="sign-in" className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400">
+                        <Link href="/sign-in" className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400">
                             Sign in instead
                         </Link>
                     </div>
 
-                </form>
             </Card>
         </div>
     );
