@@ -1,4 +1,4 @@
-'use server'
+
 
 
 const server = process.env.SERVER_URL
