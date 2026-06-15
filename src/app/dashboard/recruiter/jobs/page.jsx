@@ -1,12 +1,13 @@
 
 
 import RecruiterJobsTable from "@/components/RecruiterJobsTable";
-import { getJobs } from "@/lib/api/jobs";
+import { getCompanyJobs } from "@/lib/api/jobs";
+
 
 
 const RecruiterJobs =async () => {
  const companyId = 'company_123'; 
-const jobs = await getJobs(companyId) || []
+const jobs = await getCompanyJobs(companyId) || []
 // console.log(jobs)
 
   

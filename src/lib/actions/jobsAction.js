@@ -1,14 +1,9 @@
 "use server"
 
-const server = process.env.SERVER_URL
+import { ServerMutation } from "../core/server"
+
+
 
 export const postJobs = async(jobData)=>{
-const res = await fetch(`${server}/jobs`,{
-      method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(jobData),
-})
- return await res.json();
+    return ServerMutation('/jobs',jobData)
 }
