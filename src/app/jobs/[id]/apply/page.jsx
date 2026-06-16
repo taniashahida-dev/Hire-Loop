@@ -40,7 +40,7 @@ const job = await getJobDetails(id)
 
     return (
         <div>
-         <JobApply job={job}></JobApply>
+         <JobApply applicant={user} job={job}></JobApply>
         </div>
     );
 };
