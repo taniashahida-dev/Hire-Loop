@@ -32,13 +32,14 @@ const router = useRouter()
         setError("");
         setSuccess("");
         setIsLoading(true);
-
+const plan = role== "job seeker"?"seeker_free":"recruiter_free"
         try {
             const { data, error: authError } = await signUp.email({
                 email,
                 password,
                 name,
-                role
+                role,
+                plan
                 
             });
 
