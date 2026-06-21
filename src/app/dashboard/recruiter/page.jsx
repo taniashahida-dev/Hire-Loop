@@ -1,9 +1,10 @@
 
 'use client';
-import React from 'react';
+
+import { DashboardStats } from "@/components/dashboardComponents/DashboardStats";
 import { useSession } from "@/lib/auth-client";
 import { Briefcase, Persons, Thunderbolt, CircleCheck } from '@gravity-ui/icons';
-import { DashboardStats } from '@/components/dashboardComponents/DashboardStats';
+
 
 const RecruiterDashboardHomePage = () => {
 

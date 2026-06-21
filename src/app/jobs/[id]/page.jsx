@@ -4,6 +4,7 @@
 import { MapPin, Briefcase, CircleDollar, Calendar, ArrowUpRight } from '@gravity-ui/icons';
 import { getJobDetails } from '@/lib/api/jobs';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Page = async ({ params }) => {
     const { id } = await params;
@@ -46,7 +47,8 @@ const Page = async ({ params }) => {
                     <div className="space-y-4">
                         <div className="flex items-center gap-4">
                             {job.companyLogo && (
-                                <img
+                                <Image
+                          height="auto" width="auto"
                                     src={job.companyLogo}
                                     alt={`${job.companyName} Branding`}
                                     className="w-14 h-14 object-contain bg-zinc-900 border border-zinc-800 p-2 rounded-xl"

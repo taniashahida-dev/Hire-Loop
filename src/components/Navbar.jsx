@@ -32,6 +32,22 @@ export default function Navbar() {
     { name: "Company", href: "/company" },
     { name: "Pricing", href: "/plans" },
   ];
+
+  const links = {
+    seeker: '/dashboard/seeker',
+    recruiter: '/dashboard/recruiter',
+    admin : '/dashboard/admin'
+  }
+
+
+if(user?.email){
+  navLinks.push ({
+    name:"Dashboard",
+    href: links[user?.role||'seeker']
+  })
+}
+
+
 const handleLogOut = async () => {
 
   await authClient.signOut()

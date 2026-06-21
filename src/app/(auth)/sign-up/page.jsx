@@ -32,7 +32,7 @@ const router = useRouter()
         setError("");
         setSuccess("");
         setIsLoading(true);
-const plan = role== "job seeker"?"seeker_free":"recruiter_free"
+const plan = role== "seeker"?"seeker_free":"recruiter_free"
         try {
             const { data, error: authError } = await signUp.email({
                 email,
@@ -130,8 +130,8 @@ const plan = role== "job seeker"?"seeker_free":"recruiter_free"
 
    <div className="flex flex-col gap-4">
       <Label>Role</Label>
-      <RadioGroup defaultValue="job seeker" name="role" onChange = {value => setRole(value)} orientation="horizontal">
-        <Radio value="job seeker">
+      <RadioGroup defaultValue="seeker" name="role" onChange = {value => setRole(value)} orientation="horizontal">
+        <Radio value="seeker">
           <Radio.Control>
             <Radio.Indicator />
           </Radio.Control>

@@ -45,7 +45,8 @@ const ApplyPage = async ({ params }) => {
     }
 
     const applications = await getApplicationsByApplicant(user.id);
-
+console.log("USER:", user);
+console.log("PLAN ID:", user?.plan);
     const plan = await getPlans(user?.plan || 'seeker_free')
     console.log(plan)
     
